@@ -26,7 +26,8 @@ export function ForestEcho({ data, profile, type, orientation }: any) {
                 .forest-container {
                     font-family: 'Inter', sans-serif;
                     background-color: #FDFCF5;
-                    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+                    /* Using a local-friendly texture strategy to prevent Canvas Taint */
+                    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4eAgIA4ODg6Ojo8PDw0NDSAgIBwcHB0dHRycnJ9fX1xcXF8fHxwXHBwXHBwXHBwXHBwXHBwXHBwXHBwXHB6Y66yAAAADXRSTlMAmZlmZpmZmZlmZpmZmS39mscAAAAJcEhZcwAACxMAAAsTAQCanBgAAABPSURBVEjH7dKxDgAgCAPRu/j/R8uSxcXERm6YpG8S7C7mKqID7FmD9lxDe66hPdfQnmtov9fQfquh/VZD+62G9lsN7bca2m81tN9qaL/V0H77A0x5A9Xm89vFAAAAAElFTkSuQmCC");
                 }
                 .serif-text { font-family: 'Fraunces', serif; }
                 
@@ -39,88 +40,86 @@ export function ForestEcho({ data, profile, type, orientation }: any) {
                 }
             `}</style>
 
-            <div className={`forest-container ${orientation === 'landscape' ? 'w-[680px] h-[380px] flex' : 'w-[360px] flex flex-col'} relative overflow-hidden rounded-xl shadow-2xl border border-[#E5E2D0]`}>
+            <div className={`forest-container ${orientation === 'landscape' ? 'w-[680px] h-[380px] flex' : 'w-[360px] flex flex-col'} relative overflow-hidden rounded-[3rem] shadow-2xl border border-[#E5E2D0]`}>
                 
                 {/* WATERMARK */}
                 <div className="absolute top-10 right-10 opacity-[0.04] pointer-events-none">
                     <Trees size={orientation === 'landscape' ? 320 : 280} strokeWidth={1} />
                 </div>
 
-                {/* LEFT SECTION (SAMPLES) */}
-                <div className={`flex-[1.6] ${orientation === 'landscape' ? 'p-8 pr-6 border-r' : 'p-8 border-b'} border-[#E5E2D0] relative flex flex-col justify-between`}>
+                {/* LEFT SECTION */}
+                <div className={`flex-[1.6] ${orientation === 'landscape' ? 'p-10 pr-6 border-r' : 'p-10 border-b'} border-[#E5E2D0] relative flex flex-col justify-between`}>
                     <div className="flex justify-between items-start mb-4">
                         <div className="space-y-1">
-                            <h2 className="serif-text text-2xl font-semibold text-[#1A2F23] italic tracking-tight leading-none">Forest Echo</h2>
-                            <p className="text-[7px] font-bold tracking-[0.4em] text-[#4A5D4E]/70 uppercase">Botanical Audio Manifest • 2025</p>
+                            <h2 className="serif-text text-3xl font-semibold text-[#1A2F23] italic tracking-tight leading-none">Forest Echo</h2>
+                            <p className="text-[8px] font-bold tracking-[0.4em] text-[#4A5D4E]/70 uppercase">Botanical Audio Manifest • 2026</p>
                         </div>
-                        <Leaf className="text-[#4A5D4E]/60" size={22} strokeWidth={1.5} />
+                        <Leaf className="text-[#4A5D4E]/60" size={24} strokeWidth={1.5} />
                     </div>
 
                     <div className="grid grid-cols-2 gap-6 mb-4">
                         <div>
-                            <span className="text-[8px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-1">Subject</span>
+                            <span className="text-[9px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-1">Subject</span>
                             <p className="serif-text text-xl text-[#1A2F23] font-medium truncate">{profile?.display_name || 'Forest Guest'}</p>
                         </div>
                         <div className="text-right">
-                            <span className="text-[8px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-1">Habitat</span>
-                            <p className="serif-text text-3xl text-[#D4A373] font-bold leading-none">24B</p>
+                            <span className="text-[9px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-1">Habitat</span>
+                            <p className="serif-text text-3xl text-[#D4A373] font-bold leading-none">26A</p>
                         </div>
                     </div>
 
-                    {/* LIST AREA - Tightened slightly to ensure 5th item fits */}
-                    <div className="space-y-1.5">
-                        <div className="h-[1px] bg-[#E5E2D0] w-full mb-2 flex justify-center items-center">
-                            <span className="bg-[#FDFCF5] px-3 text-[7px] font-black text-[#4A5D4E]/40 tracking-[0.3em] uppercase">Collected Samples</span>
+                    <div className="space-y-2">
+                        <div className="h-[1px] bg-[#E5E2D0] w-full mb-3 flex justify-center items-center">
+                            <span className="bg-[#FDFCF5] px-3 text-[8px] font-black text-[#4A5D4E]/40 tracking-[0.3em] uppercase">Collected Samples</span>
                         </div>
                         {data?.slice(0, 5).map((item: any, i: number) => (
-                            <div key={i} className="flex justify-between items-end leading-tight">
-                                <div className="flex items-baseline gap-2">
-                                    <span className="serif-text italic text-[10px] text-[#4A5D4E]/40">{i+1}.</span>
-                                    <span className="serif-text text-[12px] text-[#1A2F23] font-semibold truncate max-w-[180px]">{item?.name}</span>
+                            <div key={i} className="flex justify-between items-end leading-tight py-0.5">
+                                <div className="flex items-baseline gap-2 overflow-hidden">
+                                    <span className="serif-text italic text-[11px] text-[#4A5D4E]/40">{i+1}.</span>
+                                    <span className="serif-text text-[13px] text-[#1A2F23] font-semibold truncate max-w-[160px] md:max-w-[220px]">{item?.name}</span>
                                 </div>
                                 <div className="flex-1 border-b border-dotted border-[#E5E2D0]/60 mx-2 mb-1" />
-                                <span className="text-[10px] font-bold text-[#4A5D4E] tabular-nums">{getMetric(item)}</span>
+                                <span className="text-[11px] font-bold text-[#4A5D4E] tabular-nums">{getMetric(item)}</span>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* RIGHT SECTION (STUB) */}
-                <div className={`flex-1 p-8 ${orientation === 'landscape' ? 'flex flex-col justify-between' : 'space-y-10'} bg-[#F9F8F0]/50 relative`}>
+                <div className={`flex-1 p-10 ${orientation === 'landscape' ? 'flex flex-col justify-between' : 'space-y-10'} bg-[#F9F8F0]/50 relative`}>
                     
                     <div className="space-y-6 relative z-10">
                         {/* STAMP */}
-                        <div className="absolute -top-4 -right-4 w-16 h-16 stamp-seal flex items-center justify-center flex-col border-dashed bg-white/30 backdrop-blur-[2px]">
-                            <span className="text-[6px] font-black text-center leading-tight uppercase text-[#4A5D4E]">Certified<br/>Organic<br/>Sonic</span>
+                        <div className="absolute -top-6 -right-6 w-20 h-20 stamp-seal flex items-center justify-center flex-col border-dashed bg-white/30 backdrop-blur-[2px]">
+                            <span className="text-[7px] font-black text-center leading-tight uppercase text-[#4A5D4E]">Certified<br/>Organic<br/>Sonic</span>
                         </div>
 
                         <div className="pt-2">
-                            <span className="text-[8px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-4">Observation Data</span>
+                            <span className="text-[9px] font-bold text-[#4A5D4E]/50 uppercase tracking-widest block mb-4">Observation Data</span>
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center border-b border-[#E5E2D0] pb-1">
-                                    <span className="text-[9px] font-bold text-[#4A5D4E]/70 uppercase">Date</span>
-                                    <span className="serif-text text-[11px] italic font-semibold text-[#1A2F23]">{purchaseDate}</span>
+                                    <span className="text-[10px] font-bold text-[#4A5D4E]/70 uppercase">Date</span>
+                                    <span className="serif-text text-[12px] italic font-semibold text-[#1A2F23]">{purchaseDate}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-[#E5E2D0] pb-1">
-                                    <span className="text-[9px] font-bold text-[#4A5D4E]/70 uppercase">Origin</span>
-                                    <span className="serif-text text-[11px] italic font-semibold text-[#1A2F23]">Deep Wilds</span>
+                                    <span className="text-[10px] font-bold text-[#4A5D4E]/70 uppercase">Origin</span>
+                                    <span className="serif-text text-[12px] italic font-semibold text-[#1A2F23]">Deep Wilds</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* BARCODE & CREDITS */}
                     <div className="text-center space-y-3">
-                        <div className="flex justify-center gap-[2px] opacity-40 h-6 items-end">
+                        <div className="flex justify-center gap-[2.5px] opacity-40 h-8 items-end">
                             {[...Array(24)].map((_, i) => (
-                                <div key={i} className="w-[1.5px] bg-[#1A2F23]" style={{ height: `${Math.random() * 100}%` }} />
+                                <div key={i} className="w-[2px] bg-[#1A2F23]" style={{ height: `${20 + Math.random() * 80}%` }} />
                             ))}
                         </div>
                         <div className="space-y-1">
-                            <p className="text-[7px] text-[#4A5D4E]/80 leading-relaxed uppercase tracking-[0.1em] font-bold">
+                            <p className="text-[8px] text-[#4A5D4E]/80 leading-relaxed uppercase tracking-[0.1em] font-bold">
                                 Made with ❤️ by mhooky
                             </p>
-                            <p className="text-[8px] text-[#1A2F23] serif-text italic font-bold tracking-tight">
+                            <p className="text-[10px] text-[#1A2F23] serif-text italic font-bold tracking-tight">
                                 sonicslip.vercel.app
                             </p>
                         </div>

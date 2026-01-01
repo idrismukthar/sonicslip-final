@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* GOOGLE ADSENSE - Replace XXXXXXXXXXXXXXXX with your actual ID later */}
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8655334992053664"
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />

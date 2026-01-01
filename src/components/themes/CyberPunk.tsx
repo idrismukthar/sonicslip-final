@@ -104,7 +104,7 @@ export function CyberPunk({ data, profile, type, orientation }: any) {
                         Made with ❤️ by <span className="text-white/40 italic tracking-normal capitalize text-[10px]">mhooky</span> <br />
                         <span className="lowercase opacity-50">sonicslip.vercel.app</span>
                     </p>
-                    <div className="pt-2 border-t border-white/5 text-[7px] text-[#00FFF0]/40 font-black tracking-[0.5em] uppercase italic">Bon Voyage</div>
+                    <div className="pt-2 border-t border-white/5 text-[7px] text-[#00FFF0]/40 font-black tracking-[0.5em] uppercase italic">Bon Voyage ✈️</div>
                 </div>
             </div>
         </div>

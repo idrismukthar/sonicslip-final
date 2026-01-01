@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import { getTopData, getUserProfile } from "@/lib/spotify";
-import { Plane, RefreshCw, Share2, Download, X, Settings2, Smartphone, Layout, CheckCircle2, Coffee } from "lucide-react";
+import { RefreshCw, Share2, Download, X, Settings2, Smartphone, Layout, CheckCircle2, Coffee } from "lucide-react";
 import Link from "next/link";
 import { TicketRenderer } from "@/components/themes/themeEngine";
 
@@ -53,28 +53,39 @@ export default function Studio() {
     
     setDownloading(true);
     try {
-      // Small delay to ensure any layout shifts are settled
-      await new Promise(resolve => setTimeout(resolve, 150));
+      // Give the browser time to clear any hover states or animations
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-      const canvas = await html2canvas(ticketRef.current, {
-        backgroundColor: null,
-        scale: 3,             // 3x scale for crystal clear social media shares
-        logging: false,
-        useCORS: true,        // Critical for Spotify images
-        allowTaint: false,
-        imageTimeout: 15000,  // Give it time to fetch remote assets
+      const element = ticketRef.current;
+      const canvas = await html2canvas(element, {
+        useCORS: true,           
+        allowTaint: false,       
+        backgroundColor: null,   
+        scale: 3,                // Higher quality for print/sharing
+        logging: false,          
+        imageTimeout: 20000,     
+        // Explicitly capture the full dimensions of the element
+        width: element.scrollWidth,
+        height: element.scrollHeight,
+        onclone: (clonedDoc) => {
+          // Force the cloned element to be visible and properly sized
+          const clonedElement = clonedDoc.body.querySelector('[data-ticket-wrapper]');
+          if (clonedElement) {
+            (clonedElement as HTMLElement).style.transform = 'none';
+          }
+        }
       });
       
       const dataUrl = canvas.toDataURL('image/png', 1.0);
       const link = document.createElement('a');
       link.href = dataUrl;
-      link.download = `sonicslip-${type}-${new Date().getTime()}.png`;
+      link.download = `sonicslip-${type}-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (err) {
-      console.error('Download failed:', err);
-      alert('Failed to generate image. Try again or take a screenshot!');
+      console.error('Download Error:', err);
+      alert('Could not generate PNG. Please try a screenshot for now while we fix this theme asset!');
     } finally {
       setDownloading(false);
     }
@@ -91,11 +102,11 @@ export default function Studio() {
       } catch (err) {}
     } else { 
       navigator.clipboard.writeText(window.location.href);
-      alert("Link copied to clipboard!"); 
+      alert("Link copied!"); 
     }
   };
 
-  if (!session) return <div className="p-10 text-white font-mono text-center h-screen flex items-center justify-center">AUTHENTICATING...</div>;
+  if (!session) return <div className="p-10 text-white font-mono text-center h-screen flex items-center justify-center bg-black">AUTHENTICATING...</div>;
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans flex flex-col md:flex-row overflow-hidden">
@@ -104,7 +115,7 @@ export default function Studio() {
       <div className="md:hidden flex items-center justify-between p-5 bg-[#111] border-b border-white/5 z-30">
         <h1 className="text-xl font-black italic text-[#00FFF0]">SONICSLIP</h1>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-2 bg-[#00FFF0] text-black px-4 py-2 rounded-full font-black text-[10px]">
-          {sidebarOpen ? <X size={16}/> : <><Settings2 size={14}/> EDIT TICKET</>}
+          {sidebarOpen ? <X size={16}/> : <><Settings2 size={14}/> EDIT</>}
         </button>
       </div>
 
@@ -116,12 +127,12 @@ export default function Studio() {
       `}>
         <div className="hidden md:block">
           <h1 className="text-3xl font-black italic text-[#00FFF0]">SONICSLIP</h1>
-          <p className="text-[10px] uppercase opacity-30 tracking-[0.4em] mt-1">Studio Edition v1.2</p>
+          <p className="text-[10px] uppercase opacity-30 tracking-[0.4em] mt-1">Studio v1.2</p>
         </div>
 
         <div className="flex flex-col gap-5 mt-8 md:mt-4 overflow-y-auto pb-20 scrollbar-hide">
           <section>
-            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Format</label>
+            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Orientation</label>
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => setOrientation('portrait')} className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-[10px] font-bold transition-all ${orientation === 'portrait' ? 'bg-white text-black border-white' : 'border-white/10 opacity-50'}`}><Smartphone size={14}/> PORTRAIT</button>
               <button onClick={() => setOrientation('landscape')} className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-[10px] font-bold transition-all ${orientation === 'landscape' ? 'bg-white text-black border-white' : 'border-white/10 opacity-50'}`}><Layout size={14}/> LANDSCAPE</button>
@@ -129,8 +140,8 @@ export default function Studio() {
           </section>
 
           <section>
-            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Source</label>
-            <select value={type} onChange={(e) => setType(e.target.value)} className="w-full bg-black border border-white/10 p-4 rounded-xl text-xs font-bold outline-none focus:border-[#00FFF0] cursor-pointer appearance-none">
+            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Category</label>
+            <select value={type} onChange={(e) => setType(e.target.value)} className="w-full bg-black border border-white/10 p-4 rounded-xl text-xs font-bold outline-none cursor-pointer appearance-none">
               <option value="tracks">TOP TRACKS</option>
               <option value="artists">TOP ARTISTS</option>
               <option value="albums">TOP ALBUMS</option>
@@ -139,7 +150,7 @@ export default function Studio() {
           </section>
 
           <section>
-            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Timeframe</label>
+            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Time Range</label>
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => setRange('short_term')} className={`p-3 text-[10px] font-bold rounded-xl border transition-all ${range === 'short_term' ? 'bg-[#00FFF0] text-black border-[#00FFF0]' : 'border-white/10'}`}>WEEKLY</button>
               <button onClick={() => setRange('medium_term')} className={`p-3 text-[10px] font-bold rounded-xl border transition-all ${range === 'medium_term' ? 'bg-[#00FFF0] text-black border-[#00FFF0]' : 'border-white/10'}`}>MONTHLY</button>
@@ -147,7 +158,7 @@ export default function Studio() {
           </section>
 
           <section>
-            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Theme</label>
+            <label className="text-[10px] font-black opacity-40 uppercase tracking-widest mb-2 block">Style Theme</label>
             <div className="grid grid-cols-2 gap-2">
               {['CYBER_PUNK', 'NEO_SYNTH', 'GLASS_VUE', 'MONO_RAW' , 'FOREST_ECHO'].map((t) => (
                 <button key={t} onClick={() => setTheme(t)} className={`py-3 rounded-xl border text-[9px] font-black transition-all ${theme === t ? 'border-[#00FFF0] text-[#00FFF0] bg-[#00FFF0]/5' : 'border-white/5 opacity-40'}`}>{t.replace('_', ' ')}</button>
@@ -160,17 +171,13 @@ export default function Studio() {
             target="_blank"
             className="flex items-center justify-center gap-2 p-4 bg-[#FFDD00] text-black rounded-xl text-[10px] font-black uppercase tracking-wider hover:brightness-110 transition-all mt-2"
           >
-            <Coffee size={14}/> Fuel the developer
+            <Coffee size={14}/> Support Dev
           </Link>
-
-          <button onClick={() => setSidebarOpen(false)} className="md:hidden w-full py-4 bg-white text-black font-black rounded-xl flex items-center justify-center gap-2 text-xs tracking-widest">
-            <CheckCircle2 size={16}/> SAVE & VIEW
-          </button>
         </div>
 
         <div className="hidden md:flex mt-auto flex-col gap-3">
-          <button onClick={handleDownload} disabled={downloading} className="w-full py-4 bg-[#00FFF0] text-black font-black rounded-2xl flex items-center justify-center gap-2 text-xs tracking-widest hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-            <Download size={18}/> {downloading ? 'DOWNLOADING...' : 'DOWNLOAD PNG'}
+          <button onClick={handleDownload} disabled={downloading} className="w-full py-4 bg-[#00FFF0] text-black font-black rounded-2xl flex items-center justify-center gap-2 text-xs tracking-widest hover:brightness-110 transition-all disabled:opacity-50">
+            <Download size={18}/> {downloading ? 'WORKING...' : 'DOWNLOAD PNG'}
           </button>
           <button onClick={handleShare} className="w-full py-4 bg-white/5 border border-white/10 font-bold rounded-2xl flex items-center justify-center gap-2 text-xs tracking-widest hover:bg-white/10 transition-all">
             <Share2 size={18}/> SHARE
@@ -184,7 +191,7 @@ export default function Studio() {
             {loading ? (
             <div className="flex flex-col items-center gap-4">
                 <RefreshCw className="animate-spin text-[#00FFF0]" size={40} />
-                <p className="text-[10px] font-mono tracking-[0.5em] text-[#00FFF0]">GENERATING...</p>
+                <p className="text-[10px] font-mono tracking-[0.5em] text-[#00FFF0]">FETCHING DATA...</p>
             </div>
             ) : error ? (
             <div className="flex flex-col items-center gap-4 text-center">
@@ -193,38 +200,23 @@ export default function Studio() {
             </div>
             ) : (
             <div className="flex flex-col items-center gap-8 w-full max-w-4xl mx-auto">
-                {/* WRAPPER FOR HTML2CANVAS */}
                 <div 
+                  data-ticket-wrapper
                   className={`transition-all duration-700 ${orientation === 'landscape' ? 'rotate-0' : 'scale-[0.85] sm:scale-95 md:scale-100'}`} 
                   ref={ticketRef}
-                  style={{ borderRadius: '3rem' }} // Ensures corners don't clip on export
                 >
                   <TicketRenderer theme={theme} data={data} profile={profile} type={type} rangeLabel={rangeLabel} orientation={orientation} />
                 </div>
 
-                {/* MOBILE ACTION BUTTONS */}
+                {/* MOBILE BUTTONS */}
                 <div className="flex md:hidden flex-col gap-3 w-full max-w-[360px] pb-4">
-                  <button onClick={handleDownload} disabled={downloading} className="w-full py-5 bg-[#00FFF0] text-black font-black rounded-[2rem] flex items-center justify-center gap-3 active:scale-[0.95] transition-transform shadow-xl shadow-[#00FFF0]/10 disabled:opacity-50">
+                  <button onClick={handleDownload} disabled={downloading} className="w-full py-5 bg-[#00FFF0] text-black font-black rounded-[2rem] flex items-center justify-center gap-3 active:scale-[0.95] disabled:opacity-50">
                     <Download size={20} /> {downloading ? 'PROCESSING...' : 'DOWNLOAD PNG'}
-                  </button>
-                  <button onClick={handleShare} className="w-full py-5 bg-white/5 border border-white/10 font-bold rounded-[2rem] flex items-center justify-center gap-3 active:scale-[0.95] transition-transform">
-                    <Share2 size={20} /> SHARE MANIFEST
                   </button>
                 </div>
             </div>
             )}
         </div>
-
-        {/* FOOTER */}
-        <footer className="w-full bg-[#0A0A0A] border-t border-white/5 p-4 flex flex-col items-center gap-2">
-            <div className="w-full max-w-[728px] h-[90px] bg-white/5 rounded flex items-center justify-center border border-dashed border-white/10">
-                <p className="text-[10px] text-white/20 font-mono uppercase tracking-widest">Sponsor Space</p>
-            </div>
-            <div className="flex gap-4 items-center mt-2">
-                <p className="text-[9px] text-white/20 uppercase font-bold tracking-widest">© 2025 SonicSlip</p>
-                <Link href="https://buymeacoffee.com/idrismukthar?new=1" target="_blank" className="text-[9px] text-[#FFDD00] font-black hover:underline">BUY ME A COFFEE</Link>
-            </div>
-        </footer>
       </main>
     </div>
   );
