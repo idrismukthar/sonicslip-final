@@ -85,7 +85,7 @@ export default function Studio() {
       document.body.removeChild(link);
     } catch (err) {
       console.error('Download Error:', err);
-      alert('Could not generate PNG. Please try a screenshot for now while we fix this theme asset!');
+      alert("I'm very sorry, the image generation is not working for now. Please try a screenshot while we correct this issue!");
     } finally {
       setDownloading(false);
     }
@@ -217,6 +217,38 @@ export default function Studio() {
             </div>
             )}
         </div>
+        {/* FOOTER AREA - ADS & LINKS */}
+        <footer className="w-full mt-auto py-10 px-6 border-t border-white/5 bg-black/40 flex flex-col items-center gap-8">
+          
+          {/* ADSENSE UNIT */}
+          <div className="w-full max-w-[728px] min-h-[90px] bg-white/5 rounded-lg flex items-center justify-center overflow-hidden">
+            <ins className="adsbygoogle"
+                 style={{ display: 'block', width: '100%' }}
+                 data-ad-client="ca-pub-8655334992053664"
+                 data-ad-slot="1582934500"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script dangerouslySetInnerHTML={{
+              __html: '(window.adsbygoogle = window.adsbygoogle || []).push({});'
+            }} />
+          </div>
+
+          {/* BOTTOM BAR */}
+          <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-bold tracking-[0.3em] opacity-40 uppercase">
+            <div className="flex flex-col items-center md:items-start gap-1">
+              <p>&copy; {new Date().getFullYear()} SONICSLIP</p>
+              <p className="text-[8px] opacity-60">Music Boarding Pass System</p>
+            </div>
+            
+            <Link 
+              href="https://buymeacoffee.com/idrismukthar?new=1" 
+              target="_blank"
+              className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full hover:bg-[#FFDD00] hover:text-black hover:opacity-100 transition-all text-[#FFDD00]"
+            >
+              <Coffee size={12}/> Buy me a coffee
+            </Link>
+          </div>
+        </footer>
       </main>
     </div>
   );
