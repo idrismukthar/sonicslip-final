@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plane } from "lucide-react";
 
-export function CyberPunk({ data, profile, type, orientation }: any) {
+export function CyberPunk({ data, profile, type, orientation, rangeLabel }: any) {
     const purchaseDate = new Date().toLocaleDateString('en-US', { 
         day: '2-digit', month: 'short', year: 'numeric' 
     }).toUpperCase();
@@ -36,7 +36,7 @@ export function CyberPunk({ data, profile, type, orientation }: any) {
                     </div>
                 </div>
 
-                {/* Passenger Info - Using sans font for Emoji Support */}
+                {/* Passenger Info */}
                 <div className="grid grid-cols-2 gap-6">
                     <div>
                         <p className="text-[8px] text-white/30 uppercase font-black mb-1">Passenger Name</p>
@@ -50,13 +50,18 @@ export function CyberPunk({ data, profile, type, orientation }: any) {
                     </div>
                 </div>
 
-                {/* Itinerary / Top 5 - Tightened spacing for Landscape */}
+                {/* Itinerary Section - UPDATED TO SHOW BOTH TYPE AND RANGE */}
                 <div className="space-y-2">
-                   <div className="flex items-center gap-2 mb-2">
-                        <div className="h-[1px] flex-1 bg-white/10"></div>
-                        <p className="text-[8px] text-[#00FFF0] font-black tracking-[0.2em] uppercase">Itinerary // {type}</p>
-                        <div className="h-[1px] flex-1 bg-white/10"></div>
+                   <div className="flex items-center justify-between mb-1">
+                        <p className="text-[8px] text-[#00FFF0] font-black tracking-[0.2em] uppercase">
+                            ITINERARY // {type}
+                        </p>
+                        <p className="text-[8px] text-white/40 font-black tracking-[0.1em] uppercase">
+                            {rangeLabel}
+                        </p>
                    </div>
+                   <div className="h-[1px] w-full bg-white/10 mb-3"></div>
+                   
                    {data?.slice(0, 5).map((item: any, i: number) => (
                        <div key={item?.id || i} className="flex justify-between items-center py-0.5">
                            <div className="flex items-center gap-4 overflow-hidden">
