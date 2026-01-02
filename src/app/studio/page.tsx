@@ -6,6 +6,7 @@ import { getTopData, getUserProfile } from "@/lib/spotify";
 import { RefreshCw, Share2, Download, X, Settings2, Smartphone, Layout, CheckCircle2, Coffee } from "lucide-react";
 import Link from "next/link";
 import { TicketRenderer } from "@/components/themes/themeEngine";
+import Script from "next/script";
 
 export default function Studio() {
   const { data: session } = useSession();
