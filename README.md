@@ -1,6 +1,3 @@
-
-### 🚀 Updated README Header (Copy & Paste)
-
 ```markdown
 # ✈️ SonicSlip: Your Audio Boarding Pass
 
@@ -37,11 +34,9 @@
 * **Upstash Redis:** To prevent API abuse, I built a custom middleware using Redis to track IP-based request limits.
 * **Edge Middleware:** Your requests are validated at the network edge, ensuring that malicious traffic never reaches the main application logic.
 
-
-
 ### **The Creative Studio**
-* **Tailwind CSS:** Powers the 4 distinct design themes with zero runtime overhead.
-* **html2canvas:** A highly customized implementation that bypasses **CORS "Taint"** issues by using Base64-encoded textures, allowing for instant PNG downloads of your boarding passes.
+* **Tailwind CSS:** Powers the 5 distinct design themes with zero runtime overhead.
+* **html2canvas:** A highly customized implementation that bypasses **CORS** issues by using Base64-encoded textures, allowing for instant PNG downloads of your boarding passes.
 
 ---
 
@@ -65,7 +60,7 @@ Brutalist and industrial. A black-and-white, ink-heavy design that looks like a 
 
 1. **Clone the repo:**
    ```bash
-   git clone [https://github.com/idrismukthar/sonicslip.git](https://github.com/idrismukthar/sonicslip-final.git)
+   git clone [https://github.com/idrismukthar/sonicslip-final.git](https://github.com/idrismukthar/sonicslip-final.git)
 
 ```
 
@@ -77,7 +72,12 @@ npm install
 
 
 3. **Set up Environment Variables:**
-Create a `.env.local` and add your `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `UPSTASH_REDIS_REST_TOKEN`.
+Create a `.env.local` and add your:
+* `SPOTIFY_CLIENT_ID`
+* `SPOTIFY_CLIENT_SECRET`
+* `UPSTASH_REDIS_REST_TOKEN`
+
+
 4. **Run development:**
 ```bash
 npm run dev
@@ -91,6 +91,3 @@ npm run dev
 <div align="center">
 Developed with ❤️ by <b>mhooky</b>
 </div>
-
-```
-

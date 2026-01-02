@@ -228,16 +228,16 @@ export default function Studio() {
                  data-ad-slot="1582934500"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script dangerouslySetInnerHTML={{
-              __html: '(window.adsbygoogle = window.adsbygoogle || []).push({});'
-            }} />
+            <Script id="adsense-init" strategy="afterInteractive">
+               {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+            </Script>
           </div>
 
           {/* BOTTOM BAR */}
           <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-bold tracking-[0.3em] opacity-40 uppercase">
-            <div className="flex flex-col items-center md:items-start gap-1">
+            <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
               <p>&copy; {new Date().getFullYear()} SONICSLIP</p>
-              <p className="text-[8px] opacity-60">Music Boarding Pass System</p>
+              <p className="text-[8px] opacity-60 mt-1">Made with ❤️ by mhooky • Bon voyage ✈️</p>
             </div>
             
             <Link 
