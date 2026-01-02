@@ -1,18 +1,12 @@
-```markdown
 # ✈️ SonicSlip: Your Audio Boarding Pass
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/Spotify-1DB954?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify" />
-<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+<img src="https://img.shields.io/badge/Spotify-1DB954?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify" /> <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" /> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
 <br />
-<img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
-<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
-<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+<img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" /> <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" /> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 
+<br />
 <br />
 
 **The Botanical & Brutalist Sonic Manifest Generator.** *Turn your Spotify stats into high-resolution, downloadable art.*
@@ -42,17 +36,10 @@
 
 ## 🎨 Themes Available
 
-### 🌲 Forest Echo
-A vintage, botanical aesthetic. Uses organic paper textures and serif typography for a "nature-first" manifest.
-
-### ⚡ CyberPunk
-A high-contrast, neon-blue digital ticket. Optimized for high-tech, futuristic vibes with monospaced data grids.
-
-### 💎 GlassVue
-A modern take on "Glassmorphism." Features deep blurs, ambient glow effects, and a frosted-panel UI.
-
-### 🏁 MonoRaw
-Brutalist and industrial. A black-and-white, ink-heavy design that looks like a raw thermal printer receipt.
+* **🌲 Forest Echo:** A vintage, botanical aesthetic. Uses organic paper textures and serif typography.
+* **⚡ CyberPunk:** A high-contrast, neon-blue digital ticket with monospaced data grids.
+* **💎 GlassVue:** Modern "Glassmorphism" featuring deep blurs and frosted-panel UI.
+* **🏁 MonoRaw:** Brutalist and industrial. A black-and-white design inspired by thermal printer receipts.
 
 ---
 
@@ -89,5 +76,11 @@ npm run dev
 ---
 
 <div align="center">
-Developed with ❤️ by <b>mhooky</b>
+
+Developed with ❤️ by **mhooky**
+
 </div>
+
+```
+
+```
