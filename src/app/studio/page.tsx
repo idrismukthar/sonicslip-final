@@ -176,6 +176,17 @@ export default function Studio() {
           </Link>
         </div>
 
+        {/* MOBILE ONLY: STICKY SAVE BUTTON */}
+        <div className="md:hidden sticky bottom-0 left-0 right-0 p-4 bg-[#0F0F0F] border-t border-white/10 mt-auto -mx-8">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="w-full py-5 bg-[#00FFF0] text-black font-black rounded-2xl flex items-center justify-center gap-2 text-xs tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,240,0.2)]"
+          >
+            <CheckCircle2 size={18} />
+            SAVE
+          </button>
+        </div>
+
         <div className="hidden md:flex mt-auto flex-col gap-3">
           <button onClick={handleDownload} disabled={downloading} className="w-full py-4 bg-[#00FFF0] text-black font-black rounded-2xl flex items-center justify-center gap-2 text-xs tracking-widest hover:brightness-110 transition-all disabled:opacity-50">
             <Download size={18}/> {downloading ? 'WORKING...' : 'DOWNLOAD PNG'}
@@ -218,23 +229,10 @@ export default function Studio() {
             </div>
             )}
         </div>
-        {/* FOOTER AREA - ADS & LINKS */}
-        <footer className="w-full mt-auto py-10 px-6 border-t border-white/5 bg-black/40 flex flex-col items-center gap-8">
+        {/* FOOTER AREA - CREDITS THEN ADS */}
+        <footer className="w-full mt-auto py-10 px-6 border-t border-white/5 bg-black/40 flex flex-col items-center gap-10">
           
-          {/* ADSENSE UNIT */}
-          <div className="w-full max-w-[728px] min-h-[90px] bg-white/5 rounded-lg flex items-center justify-center overflow-hidden">
-            <ins className="adsbygoogle"
-                 style={{ display: 'block', width: '100%' }}
-                 data-ad-client="ca-pub-8655334992053664"
-                 data-ad-slot="1582934500"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <Script id="adsense-init" strategy="afterInteractive">
-               {`(adsbygoogle = window.adsbygoogle || []).push({});`}
-            </Script>
-          </div>
-
-          {/* BOTTOM BAR */}
+          {/* BOTTOM BAR (Now First) */}
           <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-bold tracking-[0.3em] opacity-40 uppercase">
             <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
               <p>&copy; {new Date().getFullYear()} SONICSLIP</p>
@@ -248,6 +246,19 @@ export default function Studio() {
             >
               <Coffee size={12}/> Buy me a coffee
             </Link>
+          </div>
+
+          {/* ADSENSE UNIT (Now at the Very Bottom & Slim) */}
+          <div className="w-full max-w-[728px] h-[90px] bg-white/5 rounded-lg flex items-center justify-center overflow-hidden">
+            <ins className="adsbygoogle"
+                 style={{ display: 'inline-block', width: '100%', height: '90px' }}
+                 data-ad-client="ca-pub-8655334992053664"
+                 data-ad-slot="1582934500"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="false"></ins>
+            <Script id="adsense-init" strategy="afterInteractive">
+               {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+            </Script>
           </div>
         </footer>
       </main>
