@@ -1,7 +1,7 @@
 import React from 'react';
 import { Leaf, Trees } from "lucide-react";
 
-export function ForestEcho({ data, profile, type, orientation }: any) {
+export function ForestEcho({ data, profile, type, orientation, rangeLabel }: any) {
     const purchaseDate = new Date().toLocaleDateString('en-US', { 
         day: '2-digit', month: 'long', year: 'numeric' 
     });
@@ -26,7 +26,6 @@ export function ForestEcho({ data, profile, type, orientation }: any) {
                 .forest-container {
                     font-family: 'Inter', sans-serif;
                     background-color: #FDFCF5;
-                    /* Using a local-friendly texture strategy to prevent Canvas Taint */
                     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4eAgIA4ODg6Ojo8PDw0NDSAgIBwcHB0dHRycnJ9fX1xcXF8fHxwXHBwXHBwXHBwXHBwXHBwXHBwXHBwXHB6Y66yAAAADXRSTlMAmZlmZpmZmZlmZpmZmS39mscAAAAJcEhZcwAACxMAAAsTAQCanBgAAABPSURBVEjH7dKxDgAgCAPRu/j/R8uSxcXERm6YpG8S7C7mKqID7FmD9lxDe66hPdfQnmtov9fQfquh/VZD+62G9lsN7bca2m81tN9qaL/V0H77A0x5A9Xm89vFAAAAAElFTkSuQmCC");
                 }
                 .serif-text { font-family: 'Fraunces', serif; }
@@ -69,9 +68,13 @@ export function ForestEcho({ data, profile, type, orientation }: any) {
                     </div>
 
                     <div className="space-y-2">
-                        <div className="h-[1px] bg-[#E5E2D0] w-full mb-3 flex justify-center items-center">
-                            <span className="bg-[#FDFCF5] px-3 text-[8px] font-black text-[#4A5D4E]/40 tracking-[0.3em] uppercase">Collected Samples</span>
+                        {/* UPDATED HEADER: Now shows Type and RangeLabel */}
+                        <div className="flex justify-between items-center px-1 mb-1">
+                            <span className="text-[8px] font-black text-[#4A5D4E]/60 tracking-[0.2em] uppercase">SAMPLES // {type}</span>
+                            <span className="text-[8px] font-bold text-[#D4A373] uppercase">{rangeLabel}</span>
                         </div>
+                        <div className="h-[1px] bg-[#E5E2D0] w-full mb-3" />
+                        
                         {data?.slice(0, 5).map((item: any, i: number) => (
                             <div key={i} className="flex justify-between items-end leading-tight py-0.5">
                                 <div className="flex items-baseline gap-2 overflow-hidden">

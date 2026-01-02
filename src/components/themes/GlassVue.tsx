@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plane } from "lucide-react";
 
-export function GlassVue({ data, profile, type, orientation }: any) {
+export function GlassVue({ data, profile, type, orientation, rangeLabel }: any) {
     const purchaseDate = new Date().toLocaleDateString('en-US', { 
         day: '2-digit', month: 'short', year: 'numeric' 
     }).toUpperCase();
@@ -79,9 +79,13 @@ export function GlassVue({ data, profile, type, orientation }: any) {
 
                         <div className="h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-                        {/* MANIFEST LIST */}
+                        {/* MANIFEST LIST - UPDATED WITH RANGE LABEL */}
                         <div className="space-y-2">
-                            <p className="text-[7px] font-black text-white/20 tracking-[0.4em] uppercase mb-1">Live Manifest</p>
+                            <div className="flex justify-between items-center mb-1">
+                                <p className="text-[7px] font-black text-white/20 tracking-[0.4em] uppercase">MANIFEST // {type}</p>
+                                <p className="text-[7px] font-bold text-[#BEE3F8]/40 tracking-widest uppercase">{rangeLabel}</p>
+                            </div>
+                            
                             {data?.slice(0, 5).map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between items-center py-0.5">
                                     <div className="flex items-center gap-3">
@@ -128,7 +132,7 @@ export function GlassVue({ data, profile, type, orientation }: any) {
                                     <span className="lowercase opacity-40">sonicslip.vercel.app</span>
                                 </p>
                             </div>
-                            <div className="mt-3 text-[7px] text-[#BEE3F8]/30 font-black tracking-[0.5em] uppercase italic">Bon Voyage</div>
+                            <div className="mt-3 text-[7px] text-[#BEE3F8]/30 font-black tracking-[0.5em] uppercase italic">Bon Voyage ✈️</div>
                         </div>
                     </div>
                 </div>

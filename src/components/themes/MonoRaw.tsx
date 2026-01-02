@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plane } from "lucide-react";
 
-export function MonoRaw({ data, profile, type, orientation }: any) {
+export function MonoRaw({ data, profile, type, orientation, rangeLabel }: any) {
     const purchaseDate = new Date().toLocaleDateString('en-US', { 
         day: '2-digit', month: 'short', year: 'numeric' 
     }).toUpperCase();
@@ -50,7 +50,7 @@ export function MonoRaw({ data, profile, type, orientation }: any) {
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h1 className="text-4xl font-bold leading-none tracking-tighter italic">SONIC_SLIP</h1>
-                            <p className="text-[10px] mt-2 font-bold bg-black text-white inline-block px-2 py-0.5 tracking-widest">MONO_RAW_EDITION</p>
+                            <p className="text-[10px] mt-2 font-bold bg-black text-white inline-block px-2 py-0.5 tracking-widest uppercase">{rangeLabel || 'ARCHIVE'}</p>
                         </div>
                         <div className="border-4 border-black p-2">
                             <Plane size={32} strokeWidth={3} />
@@ -63,12 +63,12 @@ export function MonoRaw({ data, profile, type, orientation }: any) {
                             <span className="text-xl font-bold uppercase truncate block">{profile?.display_name || 'NULL_USER'}</span>
                         </div>
                         <div className="border-2 border-black p-3 bg-black text-white">
-                            <span className="text-[9px] font-bold block mb-1">SECTION:</span>
-                            <span className="text-3xl font-bold leading-none block text-center">12A</span>
+                            <span className="text-[9px] font-bold block mb-1">MANIFEST_TYPE:</span>
+                            <span className="text-xl font-bold leading-none block text-center uppercase">{type}</span>
                         </div>
                     </div>
 
-                    {/* DATA LIST - Optimized for 5 items */}
+                    {/* DATA LIST */}
                     <div className="space-y-0.5">
                         <div className="flex justify-between text-[10px] font-bold border-b-2 border-black pb-1 mb-2">
                             <span>INDEX/ITEM_NAME</span>
@@ -88,7 +88,6 @@ export function MonoRaw({ data, profile, type, orientation }: any) {
 
                 {/* STUB SECTION */}
                 <div className="relative flex-1 p-8 flex flex-col justify-between bg-zinc-50">
-                    {/* PERFORATION HOLES */}
                     <div className={`cutout-perforate ${orientation === 'landscape' ? '-left-[15px] top-1/2 -translate-y-1/2' : 'left-1/2 -top-[15px] -translate-x-1/2'}`} />
                     
                     <div className="space-y-6">
@@ -107,8 +106,8 @@ export function MonoRaw({ data, profile, type, orientation }: any) {
                                 <span className="text-black">{purchaseDate}</span>
                             </div>
                             <div className="flex justify-between border-b border-black text-[10px] font-bold py-1">
-                                <span>GATE_ENTRY</span>
-                                <span>L-04</span>
+                                <span>TERM_VALID</span>
+                                <span className="uppercase">{rangeLabel}</span>
                             </div>
                             <div className="flex justify-between text-[10px] font-bold py-1">
                                 <span>STATUS</span>
@@ -123,7 +122,7 @@ export function MonoRaw({ data, profile, type, orientation }: any) {
                             Made with ❤️ by mhooky <br/>
                             <span className="text-[12px] block mt-1 underline tracking-tight">sonicslip.vercel.app</span>
                         </p>
-                        <p className="text-[7px] mt-2 opacity-50 font-bold">NO REFUNDS ON VIBES // 2025</p>
+                        <p className="text-[7px] mt-2 opacity-50 font-bold italic">AUTHENTIC_SLIP_VERIFIED</p>
                     </div>
                 </div>
             </div>

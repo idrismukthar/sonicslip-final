@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plane } from "lucide-react";
 
-export function NeoSynth({ data, profile, type, orientation }: any) {
+export function NeoSynth({ data, profile, type, orientation, rangeLabel }: any) {
     const purchaseDate = new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
 
     const getMetric = (item: any) => {
@@ -63,12 +63,12 @@ export function NeoSynth({ data, profile, type, orientation }: any) {
                         </div>
                     </div>
 
-                    {/* MANIFEST - Tightened space-y for landscape */}
+                    {/* MANIFEST - Updated with rangeLabel */}
                     <div className="space-y-1.5">
                         <div className="flex items-center gap-2 mb-1">
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#05D9E8]/40 to-transparent"></div>
-                            <p className="text-[7px] text-[#05D9E8] font-black tracking-[0.3em] uppercase">Manifest</p>
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#05D9E8]/40 to-transparent"></div>
+                            <p className="text-[7px] text-[#05D9E8] font-black tracking-[0.3em] uppercase">{type}</p>
+                            <div className="h-[1px] flex-1 bg-gradient-to-r from-[#05D9E8]/40 via-[#FF00E5]/40 to-transparent"></div>
+                            <p className="text-[7px] text-[#FF00E5] font-black tracking-[0.2em] uppercase">{rangeLabel}</p>
                         </div>
                         {data?.slice(0, 5).map((item: any, i: number) => (
                             <div key={item?.id || i} className="flex justify-between items-center border-b border-[#FF00E5]/10 pb-1">
@@ -103,8 +103,8 @@ export function NeoSynth({ data, profile, type, orientation }: any) {
                                 <span className="text-white/70 tracking-normal">{purchaseDate}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span>Class</span>
-                                <span className="text-[#FF00E5] font-black tracking-normal">PRIME</span>
+                                <span>Term</span>
+                                <span className="text-[#FF00E5] font-black tracking-normal uppercase">{rangeLabel?.split(' ')[0]}</span>
                             </div>
                         </div>
                     </div>
